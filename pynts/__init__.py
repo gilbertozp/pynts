@@ -30,7 +30,7 @@ OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 pynts: Python Naive Time Series
-set of simple utility tools for handling time series data
+set of simple utility tools for handling timeseries data
 
 @author: Gilberto Pastorello
 @contact: gzpastorello@lbl.gov
@@ -86,7 +86,7 @@ LOG_LEVELS = {
 
 class PyntsError(Exception):
     """
-    Base error/exception class for TemplateModule
+    Base error/exception class for pynts
     """
 
 

@@ -97,8 +97,9 @@ setuptools.setup(
     packages=setuptools.find_packages(curdir, exclude=['docs']),
 
     install_requires=[
-#        'numpy',
-#        'matplotlib',
+        'numpy',
+        'matplotlib',
+        'scipy',
         'pytest',
     ],
 
