@@ -101,6 +101,7 @@ setuptools.setup(
         'matplotlib',
         'scipy',
         'pytest',
+        'testfixtures',
     ],
 
     scripts=['runpynts']
