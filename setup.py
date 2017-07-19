@@ -37,15 +37,24 @@ pynts setup
 """
 import os
 import setuptools
-import codecs
 
 import pynts
 
 curdir = os.path.abspath(os.path.dirname(__file__))
 
-# Get the long description from the README file
-with codecs.open(os.path.join(curdir, 'README.md'), encoding='utf-8') as f:
-    long_description = f.read()
+long_description = """**pynts**
+
+**pynts (Python Naive Time Series)** is a set of simple utility tools for handling timeseries data
+
+pynts github page:
+https://github.com/gilbertozp/pynts
+
+
+**Contributors**
+
+- Gilberto Pastorello, gzpastorello@lbl.gov, 20170717
+"""
+
 
 setuptools.setup(
     name=pynts.__name__,
