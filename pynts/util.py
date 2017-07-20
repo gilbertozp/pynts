@@ -72,7 +72,9 @@ def extract_columns(data, columns, timestamps=STRTEST_STANDARD):
     if len(temp_headers) == 0:
         raise PyntsError("Could not find timestamp column in {h}".format(h=in_headers))
 
-    out_headers = columns + [t for t in temp_headers if t not in columns]
+    out_headers = [t for t in temp_headers if t not in columns] + columns
+
+    _log.debug("Extracting columns: {c}".format(c=out_headers))
 
     return data[out_headers]
 
@@ -118,9 +120,11 @@ def extract_interval(data, timestamp_list, first_datetime=None, last_datetime=No
     # search backwards for timestamp
     # TODO: maybe binary search-like implementation can speed-up process
     current = -1
-    while timestamp_list[current] >= first_datetime:
+    while timestamp_list[current] >= last_datetime:
         current -= 1
     last_idx = current
+
+    _log.debug("Extracting interval: [{fi}] {ft} -- [{li}] {lt}".format(fi=first_idx, ft=timestamp_list[first_idx], li=last_idx, lt=timestamp_list[last_idx]))
 
     return data[first_idx:last_idx]
 
