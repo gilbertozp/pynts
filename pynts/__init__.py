@@ -45,7 +45,7 @@ __maintainer__ = "Gilberto Pastorello"
 __email__ = "gzpastorello@lbl.gov"
 __license__ = "BSD"
 __status__ = "Development"
-__version__ = "0.0.1a2"
+__version__ = "0.0.1a3"
 __description__ = "pynts: Python Naive Time Series: simple utility tools for handling time series data"
 
 import sys
