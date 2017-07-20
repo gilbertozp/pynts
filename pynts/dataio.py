@@ -39,17 +39,7 @@ import os
 import logging
 import numpy
 
-from pynts import PyntsError
-
-_log = logging.getLogger(__name__)
-
-
-import sys
-import numpy
-import logging
-
-from datetime import datetime, date, time, timedelta
-
+from datetime import datetime
 from pynts import PyntsError
 
 _log = logging.getLogger(__name__)
@@ -63,11 +53,11 @@ def get_headers(filename, headerline=1):
     
     :param filename: name of the file to be loaded
     :type filename: str
-    :param headerline: line number where column headers are
+    :param headerline: line number for column headers (starting from 1)
     :type headerline: int
     """
     with open(filename, 'r') as f:
-        lnum = 1
+        lnum = 0
         while lnum < headerline:
             line = f.readline()
             lnum += 1
@@ -168,9 +158,9 @@ def load_csv(filename, delimiter=',', headerline=1, first_dataline=2, timestamp_
     :type filename: str
     :param delimiter: cell delimiter character (e.g., ',' or '\t')
     :type delimiter: str
-    :param headerline: line number for column headers
+    :param headerline: line number for column headers (starting from 1)
     :type headerline: int
-    :param first_dataline: line number for first data record
+    :param first_dataline: line number for first data record  (starting from 1)
     :type first_dataline: int
     :param timestamp_labels: list of timestamp column labels in file (will only use first)
     :type timestamp_labels: list
