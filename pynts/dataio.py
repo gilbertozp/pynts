@@ -152,7 +152,7 @@ def get_timestamp_format_from_resolution(sample):
 
 
 MISSING_VALUES_STANDARD = 'nan,NAN,NaN,-9999,-9999.0,-6999,-6999.0, '
-def load_csv(filename, delimiter=',', headerline=1, first_dataline=2, timestamp_labels=STRTEST_STANDARD[0:1], missing=MISSING_VALUES_STANDARD):
+def load_csv(filename, delimiter=',', headerline=1, first_dataline=None, timestamp_labels=STRTEST_STANDARD[0:1], missing=MISSING_VALUES_STANDARD):
     """
     Loads timeseries data from column oriented CSV file
     with at least one timestamp column
@@ -171,6 +171,8 @@ def load_csv(filename, delimiter=',', headerline=1, first_dataline=2, timestamp_
     :param type: str
     """
 
+    if first_dataline is None:
+        first_dataline = headerline + 1
     _log.debug("Started loading: {f}".format(f=filename))
     headers = get_headers(filename=filename, headerline=headerline)
     dtype = [(h, get_dtype(h, strtest=timestamp_labels)) for h in headers]
