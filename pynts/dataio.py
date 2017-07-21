@@ -143,7 +143,10 @@ def get_timestamp_format_from_resolution(sample):
         raise PyntsError("Unknown time format '{f}'".format(f=sample))
 
     # raises error if doesn't match sample
-    _ = datetime.strptime(s, tformat)
+    try:
+        _ = datetime.strptime(s, tformat)
+    except TypeError:
+        _ = datetime.strptime(s.decode('UTF8'), tformat)
 
     return tformat
 
@@ -169,7 +172,7 @@ def load_csv(filename, delimiter=',', headerline=1, first_dataline=2, timestamp_
     """
 
     _log.debug("Started loading: {f}".format(f=filename))
-    headers = get_headers(filename=filename)
+    headers = get_headers(filename=filename, headerline=headerline)
     dtype = [(h, get_dtype(h, strtest=timestamp_labels)) for h in headers]
     fill_values = [get_fill_value(dtype=d[1]) for d in dtype]
     data = numpy.genfromtxt(fname=filename, dtype=dtype, names=True, delimiter=",", skip_header=first_dataline - 2, missing_values=missing, usemask=True)
@@ -178,7 +181,10 @@ def load_csv(filename, delimiter=',', headerline=1, first_dataline=2, timestamp_
 
     timestamp_label = timestamp_labels[0]
     tformat = get_timestamp_format_from_resolution(data[timestamp_label][0])
-    timestamp = [datetime.strptime(i, tformat) for i in data[timestamp_label]]
+    try:
+        timestamp = [datetime.strptime(i, tformat) for i in data[timestamp_label]]
+    except TypeError:
+        timestamp = [datetime.strptime(i.decode('UTF8'), tformat) for i in data[timestamp_label]]
 
     _log.debug("Finished loading: {f}".format(f=filename))
     return data, timestamp
