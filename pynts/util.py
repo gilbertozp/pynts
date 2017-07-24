@@ -111,26 +111,14 @@ def extract_interval(data, timestamp_list, first_datetime=None, last_datetime=No
         _log.debug("Last timestamp '{l}' is earlier than (or equal to) first available timestamp '{f}'".format(l=last_datetime, f=timestamp_list[0]))
         return data[-1:0]
 
-    # instead of searching, do the math to calculate the right index.
+    # instead of searching, do the math to calculate the right indexes.
     step = timestamp_list[1] - timestamp_list[0]
     first_idx = math.ceil((first_datetime - timestamp_list[0]).total_seconds() / step.total_seconds())
-    # search forwards for timestamp
-    # TODO: maybe binary search-like implementation can speed-up process
-    # current = 0
-    # while timestamp_list[current] < first_datetime:
-    #     current += 1
-    # first_idx = current
-
     last_idx = math.ceil((timestamp_list[-1] - last_datetime).total_seconds() / step.total_seconds())
-    # search backwards for timestamp
-    # TODO: maybe binary search-like implementation can speed-up process
-    # current = -1
-    # while timestamp_list[current] > last_datetime:
-    #     current -= 1
-    # last_idx = current
 
     _log.debug("Extracting interval: [{fi}] {ft} -- [{li}] {lt}".format(fi=first_idx, ft=timestamp_list[first_idx], li=last_idx, lt=timestamp_list[last_idx]))
 
+    # since there isn't a -0 subtract the last_idx from the length of the array.
     return data[first_idx:len(data)-last_idx]
 
 
